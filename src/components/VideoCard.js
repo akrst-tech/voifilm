@@ -7,7 +7,6 @@ const VideoCardWrapper = styled.div`
   width: 100%;
   height: 35vw;
   background: green;
-  /* margin-bottom: 25px; */
   margin-bottom: 4%;
   position: relative;
   .image {
