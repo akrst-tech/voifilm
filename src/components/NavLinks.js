@@ -7,9 +7,8 @@ const NavLinksContainer = styled.ul`
   margin-top: 120px;
   display: flex;
   flex-direction: column;
-  /* flex-direction: ${props => (props.movile ? "column" : "row")}; */
   @media screen and (min-width: 800px) {
-  margin-top: 0px;
+    margin-top: 0px;
     flex-direction: row;
   }
 `
@@ -32,7 +31,6 @@ const NavLink = styled.li`
     font-size: 1rem;
     letter-spacing: 3px;
     margin: 0 20px 0 0;
-
     .nav-link {
       color: white;
       :hover {

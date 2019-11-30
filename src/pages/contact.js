@@ -47,7 +47,7 @@ const Contact = () => (
   <Layout>
     <FormWrapper className="form-wrapper">
       <form
-        action="https://formspree.io/suto1208@gmail.com"
+        action="https://formspree.io/ky.32012.voilf@gmail.com"
         method="POST"
         className="form"
       >
