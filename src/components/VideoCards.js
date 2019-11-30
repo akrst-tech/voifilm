@@ -15,24 +15,70 @@ const VideoCardsContainer = styled.div`
   }
 `
 
+// const getVideos = graphql`
+//   query {
+//     videos: allContentfulVoifilmVideoPage(
+//       sort: { order: DESC, fields: published }
+//     ) {
+//       totalCount
+//       edges {
+//         node {
+//           title
+//           slug
+//           published
+//           featured
+//           type
+//           contentful_id
+//           youTubeEmbed {
+//             youTubeEmbed
+//           }
+//           thumbnail {
+//             fluid(maxWidth: 800) {
+//               ...GatsbyContentfulFluid
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// `
+
+// const getFeatured = graphql`
+//   query {
+//     featured: allContentfulVoifilmVideoPage(
+//       filter: { featured: { eq: true } }
+//       sort: { order: DESC, fields: published }
+//     ) {
+//       edges {
+//         node {
+//           title
+//           slug
+//           contentful_id
+//           thumbnail {
+//             fluid {
+//               ...GatsbyContentfulFluid
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// `
+
 const getVideos = graphql`
   query {
     videos: allContentfulVoifilmVideoPage(
+      # filter: { featured: { eq: false } }
       sort: { order: DESC, fields: published }
     ) {
       edges {
         node {
           title
           slug
-          published
-          featured
-          type
           contentful_id
-          youTubeEmbed {
-            youTubeEmbed
-          }
+          featured
           thumbnail {
-            fluid(maxWidth: 800) {
+            fluid {
               ...GatsbyContentfulFluid
             }
           }
@@ -43,15 +89,29 @@ const getVideos = graphql`
 `
 
 const VideoCards = () => {
+  // const responseFeatured = useStaticQuery(getFeatured)
   const response = useStaticQuery(getVideos)
+
+  // const featuredVideos = responseFeatured.featured.edges
   const videos = response.videos.edges
 
   const videosNum = videos.length
+  // featuredVideos.length +
   // const supCard = videosNum % 2 === 0 ? null : <div />
+
+  const featured = videos.filter(({ node }) => {
+    return node.featured
+  })
+  const unfeatured = videos.filter(({ node }) => {
+    return !node.featured
+  })
 
   return (
     <VideoCardsContainer>
-      {videos.map(({ node }) => {
+      {featured.map(({ node }) => {
+        return <VideoCard key={node.contentful_id} video={node} />
+      })}
+      {unfeatured.map(({ node }) => {
         return <VideoCard key={node.contentful_id} video={node} />
       })}
       {videosNum % 2 === 0 ? null : <div />}
@@ -60,3 +120,14 @@ const VideoCards = () => {
 }
 
 export default VideoCards
+
+// {
+//   videos.map(({ node }) => {
+//     return <VideoCard key={node.contentful_id} video={node} />
+//   })
+// }
+// {
+//   featuredVideos.map(({ node }) => {
+//     return <VideoCard key={node.contentful_id} video={node} />
+//   })
+// }
