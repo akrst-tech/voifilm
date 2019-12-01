@@ -12,7 +12,7 @@ const MobileNavContent = styled.div`
 const HumbergerButton = styled.div`
   display: block;
   position: absolute;
-  top: 40px;
+  top: 20px;
   right: 5vw;
   z-index: 100;
   :hover {
@@ -27,10 +27,10 @@ const HumbergerButton = styled.div`
 `
 
 const ButtonLine = styled.div`
-  width: 30px;
-  height: 3px;
+  width: 25px;
+  height: 2.2px;
   padding: 0;
-  margin: 7px 0;
+  margin: 6px 0;
   background: white;
   &.showNav {
     background: black;

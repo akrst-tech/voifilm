@@ -31,6 +31,7 @@ const FormWrapper = styled.div`
         color: whitesmoke;
         transition: all 0.5s ease;
         cursor: pointer;
+        -webkit-appearance: none;
         &:hover {
           background: whitesmoke;
           color: darkgrey;
