@@ -4,7 +4,7 @@ import Layout from "../components/Layout"
 import styled from "styled-components"
 
 const Wrapper = styled.div`
-  margin: 50px 0;
+  margin: 50px 0 100px 0;
   .type {
     color: grey;
     letter-spacing: 2px;
@@ -35,7 +35,7 @@ const VideoPageTemplate = ({ data }) => {
   const {
     title,
     type,
-    youTubeEmbed: { youTubeEmbed },
+    embedUrl: { embedUrl },
   } = data.video
 
   return (
@@ -43,23 +43,11 @@ const VideoPageTemplate = ({ data }) => {
       <Wrapper>
         <div className="type">{type}</div>
         <h3 className="title">{title}</h3>
-        <IframeContainer dangerouslySetInnerHTML={{ __html: youTubeEmbed }} />
+        <IframeContainer dangerouslySetInnerHTML={{ __html: embedUrl }} />
       </Wrapper>
     </Layout>
   )
 }
-
-// export const query = graphql`
-//   query($slug: String!) {
-//     video: contentfulVoifilmVideoPage(slug: { eq: $slug }) {
-//       title
-//       type
-//       youTubeEmbed {
-//         youTubeEmbed
-//       }
-//     }
-//   }
-// `
 
 export const query = graphql`
   query($slug: String!) {
@@ -74,13 +62,3 @@ export const query = graphql`
 `
 
 export default VideoPageTemplate
-
-// const embed = data.video.videoEmbedCode.json
-
-// const options = {
-//   renderNode: {
-//     [INLINES.TEXT]: embed => (
-//       <div dangerouslySetInnerHTML={{ __html: embed }} />
-//     ),
-//   },
-// }

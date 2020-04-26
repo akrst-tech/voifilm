@@ -1,5 +1,4 @@
 import React from "react"
-// import { graphql } from "gatsby"
 
 import Layout from "../components/Layout"
 import SEO from "../components/seo"
@@ -12,20 +11,5 @@ const IndexPage = ({ data }) => (
     <VideoCards />
   </Layout>
 )
-
-// export const query = graphql`
-//   query MyQuery {
-//     allContentfulVoifilmVideoPage(sort: { order: DESC, fields: published }) {
-//       edges {
-//         node {
-//           title
-//           slug
-//           published
-//           featured
-//         }
-//       }
-//     }
-//   }
-// `
 
 export default IndexPage
