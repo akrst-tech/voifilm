@@ -48,11 +48,11 @@ const VideoCardWrapper = styled.div`
 `
 
 const VideoCard = ({ video }) => {
-  const { title, slug, thumbnail } = video
+  const { title, slug, coverImage } = video
 
   return (
     <VideoCardWrapper>
-      <Img className="image" fluid={thumbnail.fluid} />
+      <Img className="image" fluid={coverImage.fluid} />
       <Link className="hover-link" to={`/videos/${slug}`}>
         <h3 className="title">{title}</h3>
       </Link>

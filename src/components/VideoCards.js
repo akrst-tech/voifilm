@@ -65,20 +65,46 @@ const VideoCardsContainer = styled.div`
 //   }
 // `
 
+// const getVideos = graphql`
+//   query {
+//     videos: allContentfulVoifilmVideoPage(
+//       # filter: { featured: { eq: false } }
+//       sort: { order: DESC, fields: published }
+//     ) {
+//       edges {
+//         node {
+//           title
+//           slug
+//           contentful_id
+//           featured
+//           thumbnail {
+//             fluid {
+//               ...GatsbyContentfulFluid
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// `
+
 const getVideos = graphql`
   query {
-    videos: allContentfulVoifilmVideoPage(
-      # filter: { featured: { eq: false } }
-      sort: { order: DESC, fields: published }
-    ) {
-      edges {
-        node {
+    videoGallery: contentfulVideoGallery(title: { eq: "Video Gallery" }) {
+      title
+      videoGallery {
+        __typename
+        ... on ContentfulVideo {
+          id
           title
           slug
-          contentful_id
-          featured
-          thumbnail {
-            fluid {
+          embedUrl {
+            embedUrl
+          }
+          coverImage {
+            id
+            title
+            fluid(maxWidth: 500, quality: 100) {
               ...GatsbyContentfulFluid
             }
           }
@@ -93,27 +119,25 @@ const VideoCards = () => {
   const response = useStaticQuery(getVideos)
 
   // const featuredVideos = responseFeatured.featured.edges
-  const videos = response.videos.edges
+  // const videos = response.videos.edges
+  const videos = response.videoGallery.videoGallery
 
   const videosNum = videos.length
   // featuredVideos.length +
   // const supCard = videosNum % 2 === 0 ? null : <div />
 
-  const featured = videos.filter(({ node }) => {
-    return node.featured
-  })
-  const unfeatured = videos.filter(({ node }) => {
-    return !node.featured
-  })
+  // const featured = videos.filter(({ node }) => {
+  //   return node.featured
+  // })
+  // const unfeatured = videos.filter(({ node }) => {
+  //   return !node.featured
+  // })
 
   return (
     <VideoCardsContainer>
-      {featured.map(({ node }) => {
-        return <VideoCard key={node.contentful_id} video={node} />
-      })}
-      {unfeatured.map(({ node }) => {
-        return <VideoCard key={node.contentful_id} video={node} />
-      })}
+      {videos.map((video, index) => (
+        <VideoCard key={video.id} video={video} />
+      ))}
       {videosNum % 2 === 0 ? null : <div />}
     </VideoCardsContainer>
   )
@@ -128,6 +152,17 @@ export default VideoCards
 // }
 // {
 //   featuredVideos.map(({ node }) => {
+//     return <VideoCard key={node.contentful_id} video={node} />
+//   })
+// }
+
+// {
+//   featured.map(({ node }) => {
+//     return <VideoCard key={node.contentful_id} video={node} />
+//   })
+// }
+// {
+//   unfeatured.map(({ node }) => {
 //     return <VideoCard key={node.contentful_id} video={node} />
 //   })
 // }

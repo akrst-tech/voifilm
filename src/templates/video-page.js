@@ -49,13 +49,25 @@ const VideoPageTemplate = ({ data }) => {
   )
 }
 
+// export const query = graphql`
+//   query($slug: String!) {
+//     video: contentfulVoifilmVideoPage(slug: { eq: $slug }) {
+//       title
+//       type
+//       youTubeEmbed {
+//         youTubeEmbed
+//       }
+//     }
+//   }
+// `
+
 export const query = graphql`
   query($slug: String!) {
-    video: contentfulVoifilmVideoPage(slug: { eq: $slug }) {
+    video: contentfulVideo(slug: { eq: $slug }) {
       title
       type
-      youTubeEmbed {
-        youTubeEmbed
+      embedUrl {
+        embedUrl
       }
     }
   }

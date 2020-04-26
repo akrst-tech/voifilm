@@ -5,18 +5,17 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const { data } = await graphql(`
     query {
-      videos: allContentfulVoifilmVideoPage {
+      videos: allContentfulVideo {
         edges {
           node {
             title
             slug
-            published
-            featured
-            contentful_id
+            publishedDate(formatString: "YYYY/MM/DD")
             type
-            youTubeEmbed {
-              youTubeEmbed
+            embedUrl {
+              embedUrl
             }
+            contentful_id
           }
         }
       }
