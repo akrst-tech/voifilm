@@ -31,11 +31,25 @@ const IframeContainer = styled.div`
   }
 `
 
+const Credits = styled.div`
+  margin: 50px 0;
+  width: 100%;
+  color: white;
+  opacity: 0.6;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.8em;
+  letter-spacing: 0px;
+  font-size: 1rem;
+  font-weight: 300;
+  white-space: pre-wrap;
+`
+
 const VideoPageTemplate = ({ data }) => {
   const {
     title,
     type,
     embedUrl: { embedUrl },
+    credits: { credits },
   } = data.video
 
   return (
@@ -44,6 +58,7 @@ const VideoPageTemplate = ({ data }) => {
         <div className="type">{type}</div>
         <h3 className="title">{title}</h3>
         <IframeContainer dangerouslySetInnerHTML={{ __html: embedUrl }} />
+        <Credits dangerouslySetInnerHTML={{ __html: credits }} />
       </Wrapper>
     </Layout>
   )
@@ -57,8 +72,18 @@ export const query = graphql`
       embedUrl {
         embedUrl
       }
+      credits {
+        credits
+      }
     }
   }
 `
 
 export default VideoPageTemplate
+
+// < Credits dangerouslySetInnerHTML = {{ __html: credits }} />
+// {
+//   credits ? (
+//     <Credits dangerouslySetInnerHTML={{ __html: credits }} />
+//   ) : null
+// }
